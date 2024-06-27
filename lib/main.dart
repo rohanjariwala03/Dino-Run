@@ -1,11 +1,15 @@
-import 'package:dino_runner/game/dino_run.dart';
+import 'package:dino_runner/widgets/game_over.dart';
+import 'package:dino_runner/widgets/game_screen.dart';
 import 'package:flame/camera.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
+import 'game/dino_run.dart';
+import 'widgets/main_menu.dart';
+import 'widgets/pause_menu.dart';
 
 Future<void> main() async {
   // Ensures that all bindings are initialized
-  // before was start calling flame code
+  // before was start calling hive and flame code
   // dealing with platform channels.
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const DinoRunApp());
@@ -44,10 +48,13 @@ class DinoRunApp extends StatelessWidget {
           ),
           // Register all the overlays that will be used by this game.
           overlayBuilderMap: {
-            // Add Overlay Screen map
+            MainMenu.id: (_, game) => MainMenu(game),
+            PauseMenu.id: (_, game) => PauseMenu(game),
+            GameScreen.id: (_, game) => GameScreen(game),
+            GameOverMenu.id: (_, game) => GameOverMenu(game),
           },
           // By default MainMenu overlay will be active.
-          initialActiveOverlays: const [],
+          initialActiveOverlays: const [MainMenu.id],
           gameFactory: () => DinoRun(
             // Use a fixed resolution camera to avoid manually
             // scaling and handling different screen sizes.

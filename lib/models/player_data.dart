@@ -1,11 +1,11 @@
 import 'package:flutter/foundation.dart';
 
 class PlayerData extends ChangeNotifier {
-  int _lives = 1;
+  int _lives = 5;
 
   int get lives => _lives;
   set lives(int value) {
-    if (value <= 1 && value >= 0) {
+    if (value <= 5 && value >= 0) {
       _lives = value;
       notifyListeners();
     }
